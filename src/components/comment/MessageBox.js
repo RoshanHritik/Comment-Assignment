@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useRef} from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
@@ -19,13 +19,60 @@ const Comment = () => {
   const number = 11;
   const comment = true;
   const user = true;
+  const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState([]);
+  const commentInputRef = useRef(null);
+  
+  const handleAddComment = () => {
+    if (commentText.trim() !== "") {
+      const newComment = {
+        id: Math.random().toString(),
+        text: commentText,
+        replies: [],
+      };
+      setComments((prevComments) => [...prevComments, newComment]);
+      setCommentText("");
+    }
+  };
+
+  const handleDeleteComment = (commentId) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.id !== commentId)
+    );
+  };
+
+  const handleAddReply = (commentId) => {
+    const replyText = prompt("Enter your reply");
+    if (replyText && replyText.trim() !== "") {
+      const newReply = {
+        id: Math.random().toString(),
+        text: replyText,
+      };
+      setComments((prevComments) =>
+        prevComments.map((comment) => {
+          if (comment.id === commentId) {
+            return {
+              ...comment,
+              replies: [...comment.replies, newReply],
+            };
+          }
+          return comment;
+        })
+      );
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setCommentText(e.target.value);
+  };
 
   return (
     <>
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="20vh" flexDirection="column">
-      {comment && 
+      {comments.map((comment) => (
       <>
         <Paper
+        key={comment.id}
           elevation={3}
           sx={{
             p: 2,
@@ -56,7 +103,7 @@ const Comment = () => {
                       gutterBottom
                       style={{ color: "#4636b0" }}
                     >
-                      {number}
+                      {comment.number}
                     </Typography>
                   </Box>
                   <Box>
@@ -78,7 +125,8 @@ const Comment = () => {
                     >
                       Standard license
                     </Typography>
-                    {user && <Paper
+                    {Comment.user && 
+                    <Paper
                       sx={{
                         backgroundColor: "#4636b0",
                         color: "white",
@@ -97,10 +145,10 @@ const Comment = () => {
                       Standard license
                     </Typography>
                     <Box>
-                      {button === 0 ? (
+                      {comment.button !== 0 ? (
                         <Box>
                           <IconButton size="small" aria-label="Reply">
-                            <ReplyIcon style={{ color: "#4636b0" }} />
+                            <ReplyIcon style={{ color: "#4636b0" }} handleAddReply={handleAddReply}/>
                           </IconButton>
                           <Typography
                             variant="subtitle1"
@@ -153,7 +201,7 @@ const Comment = () => {
             </Box>
           </Grid>
         </Paper>
-        </>
+        </>))
       }
       </Box>
       <Box
@@ -185,10 +233,13 @@ const Comment = () => {
                     maxWidth: '100%',
                     maxHeight: '80px',
                   }}
+                  value={commentText}
+                    onChange={handleInputChange}
+                    ref={commentInputRef}
                 />
               </Grid>
               <Grid item xs={1.5} sx={{ textAlign: 'right' }}>
-                <Button variant="contained" style={{ backgroundColor: '#4636b0' }}>
+                <Button variant="contained" style={{ backgroundColor: '#4636b0' }} onClick={handleAddComment}>
                   Send
                 </Button>
               </Grid>

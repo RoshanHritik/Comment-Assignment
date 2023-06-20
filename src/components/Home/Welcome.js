@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
@@ -20,20 +20,26 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Container from "@mui/material/Container";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Comment from "./MessageBox";
+import Comment from "../comment/MessageBox";
 import SelectPlaceholder from "../../SelectPlaceholder";
 import { useParams } from 'react-router-dom';
+import Login from "../Login/Login";
 
 const pages = ["Comments"];
 const settings = ["Logout"];
 
 const Welcome = () => {
+  const [signIn, setSignIn] = React.useState(false);
+  const [userExists, setUserExists] = useState(false);
   const button = 0;
   const number = 11;
   const comment = true;
   const user = true;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const handleSignIn = () => {
+    setSignIn(true);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -49,6 +55,18 @@ const Welcome = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  useEffect(() => {
+    // Retrieve user data from local storage
+    const storedUser = localStorage.getItem('user');
+
+    // Check if user data exists
+    if (storedUser) {
+      setUserExists(true);
+    } else {
+      setUserExists(false);
+    }
+  }, []);
+
 
   return (
     <>
@@ -84,39 +102,17 @@ const Welcome = () => {
                 </Button>
               ))}
             </Box>
-            <SelectPlaceholder/>
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src={image} alt="Profile Image" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {/* {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))} */}
-                <MenuItem key={settings} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{settings}</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
+            {/* <SelectPlaceholder/> */}
+            {userExists ? (
+                <Box sx={{ display: "flex", alignItems: "flex-end", marginTop:"25px" }}>
+                <SelectPlaceholder/>
+                <Login signIn={signIn} />
+                </Box>
+            ):(
+                <Button variant="contained" color="primary" onClick={handleSignIn}>
+                Sign In
+                </Button>
+            ) }
           </Toolbar>
         </Container>
       </AppBar>

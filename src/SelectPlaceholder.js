@@ -45,6 +45,7 @@ export default function SelectPlaceholder() {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+    window.location.href = `/sport/${personName[0].split(' ')[0].toLowerCase()}`;
   };
 
   return (
