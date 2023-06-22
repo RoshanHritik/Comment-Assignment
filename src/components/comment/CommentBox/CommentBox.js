@@ -4,7 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { TextareaAutosize } from "@mui/material";
+import { Hidden, TextareaAutosize } from "@mui/material";
 import image from "../../../assests/product_1.png";
 import { useDispatch } from "react-redux";
 import { addComment } from "../../../redux/Comment/commentSlice";
@@ -17,30 +17,19 @@ const CommentBox = () => {
 
   const handleAddComment = (event) => {
     event.preventDefault();
-    
-
-    if(commentText.trim().length === 0)
-    {
-        alert("Enter a task before adding !!");
-        setCommentText("");
-        return;
+    if (commentText.trim().length === 0) {
+      alert("Enter a task before adding !!");
+      setCommentText("");
+      return;
     }
-    // const newComment = {
-    //   id: uuidv4(),
-    //   content: commentText,
-    // };
-    // dispatch(addComment({newComment}));
-
     dispatch(
-        addComment({
-            id: uuidv4(),
-            content: commentText
-        })
+      addComment({
+        id: uuidv4(),
+        content: commentText,
+      })
     );
-
     setCommentText("");
-};
-// console.log(commentText);
+  };
   return (
     <>
       <Box
@@ -53,6 +42,9 @@ const CommentBox = () => {
         justifyContent="center"
         p={2}
         zIndex={9999}
+        marginBottom={"35px"}
+        backgroundColor={"#e6e6e6"}
+        // overflow="hidden"
       >
         <Grid>
           <Box display="flex" justifyContent="center">
