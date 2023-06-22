@@ -42,8 +42,9 @@ const ReplyItem = ({ id, replyDetails }) => {
         p: 2,
         display: "flex",
         alignItems: "center",
-        width: 600,
-        padding: "1rem",
+        width: 550,
+        // left: 
+        // padding: "1rem",
       }}
     >
       <Grid container spacing={2}>
@@ -82,7 +83,7 @@ const ReplyItem = ({ id, replyDetails }) => {
               <Box display="flex" alignItems="center">
                 <Avatar src={image} alt="Profile Image" />
                 <Typography gutterBottom variant="subtitle1" component="div">
-                  Standard license
+                  Standard
                 </Typography>
                 {replyDetails && (
                   <Paper
@@ -98,7 +99,7 @@ const ReplyItem = ({ id, replyDetails }) => {
                   </Paper>
                 )}
                 <Typography gutterBottom variant="subtitle1" component="div">
-                  Standard license
+                  Standard
                 </Typography>
                 <Box>
                   {button !== 0 ? (

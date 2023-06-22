@@ -104,7 +104,7 @@ const CommentItem = ({ id, commentDetails }) => {
                 <Box display="flex" alignItems="center">
                   <Avatar src={image} alt="Profile Image" />
                   <Typography gutterBottom variant="subtitle1" component="div">
-                    Standard license
+                    Standard
                   </Typography>
                   {commentDetails && (
                     <Paper
@@ -120,7 +120,7 @@ const CommentItem = ({ id, commentDetails }) => {
                     </Paper>
                   )}
                   <Typography gutterBottom variant="subtitle1" component="div">
-                    Standard license
+                    Standard
                   </Typography>
                   <Box>
                     {button !== 0 ? (

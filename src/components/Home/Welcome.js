@@ -1,27 +1,11 @@
 import React, {useState, useEffect} from "react";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import ReplyIcon from "@mui/icons-material/Reply";
-import EditIcon from "@mui/icons-material/Edit";
-import Avatar from "@mui/material/Avatar";
-import DeleteIcon from "@mui/icons-material/Delete";
-import image from "../../assests/product_1.png";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { AppBar, Toolbar } from "@mui/material";
-import { TextareaAutosize } from "@mui/material";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Container from "@mui/material/Container";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Comment from "../comment/MessageBox";
-import SelectPlaceholder from "../../SelectPlaceholder";
+import Sports from "../Sports/Sports";
 import { useParams } from 'react-router-dom';
 import Login from "../Login/Login";
 
@@ -102,10 +86,9 @@ const Welcome = () => {
                 </Button>
               ))}
             </Box>
-            {/* <SelectPlaceholder/> */}
             {userExists ? (
                 <Box sx={{ display: "flex", alignItems: "flex-end", marginTop:"25px" }}>
-                <SelectPlaceholder/>
+                <Sports/>
                 <Login signIn={signIn} />
                 </Box>
             ):(
@@ -116,7 +99,7 @@ const Welcome = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Comment />
+      {/* <Comment /> */}
     </>
   );
 };

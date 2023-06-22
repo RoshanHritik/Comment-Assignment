@@ -6,7 +6,7 @@ import { AppBar, Toolbar } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
 import Container from "@mui/material/Container";
 import Login from "../Login/Login";
-import SelectPlaceholder from "../../SelectPlaceholder";
+import Sports from "../Sports/Sports";
 
 const pages = ["Comments"];
 
@@ -64,7 +64,7 @@ const Home = () => {
                 </Button>
             ) : (
                 <Box sx={{ display: "flex", alignItems: "flex-end", marginTop:"25px" }}>
-                <SelectPlaceholder/>
+                <Sports/>
                 <Login signIn={signIn} />
 
                 </Box>
