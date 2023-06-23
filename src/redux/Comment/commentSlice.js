@@ -69,10 +69,11 @@ const commentSlice = createSlice({
     addReply: (state, action) => {
       const { commentId, reply } = action.payload;
       state.comments = state.comments.map((comment) => {
-        // console.log(comment);
+        console.log(comment.parentId);
         if (comment.id === commentId) {
           const newReply = {
             id: uuidv4(),
+            parentId: "",
             content: "",
             user: {
               name: "",

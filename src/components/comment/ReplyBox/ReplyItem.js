@@ -15,12 +15,16 @@ import { useDispatch } from "react-redux";
 import {  deleteComment, upvoteComment, downvoteComment  } from "../../../redux/Comment/commentSlice";
 import ReplyBox from "./ReplyBox";
 import ReplyList from "./ReplyList";
+import CommentItem from "../CommentBox/CommentItem";
 
-const ReplyItem = ({ id, replyDetails, parentId }) => {
+const ReplyItem = ({ id, replyDetails, parentId, votes, name, picture, timestamp }) => {
+  const [activeCommentId, setActiveCommentId] = useState(null);
+  const [isReplyBoxVisible, setReplyBoxVisible] = useState(false);
+
   const button = 1;
   const number = 0;
   const dispatch = useDispatch();
-  console.log(replyDetails);
+  // console.log(replyDetails);
 
   const removeComment = () => {
     dispatch(
@@ -35,6 +39,11 @@ const ReplyItem = ({ id, replyDetails, parentId }) => {
 
   const handleDownvote = () => {
     dispatch(downvoteComment(id));
+  };
+  console.log(replyDetails); 
+  const toggleReplyBox = () => {
+    setActiveCommentId(parentId);
+    setReplyBoxVisible(!isReplyBoxVisible);
   };
   console.log(parentId);  
   return (
@@ -81,7 +90,7 @@ const ReplyItem = ({ id, replyDetails, parentId }) => {
                   gutterBottom
                   style={{ color: "#4636b0" }}
                 >
-                  {number}
+                  {votes}
                 </Typography>
               </Box>
               <Box>
@@ -95,9 +104,9 @@ const ReplyItem = ({ id, replyDetails, parentId }) => {
             <Grid item xs={12} container direction="column" spacing={0}>
               <Grid item xs></Grid>
               <Box display="flex" alignItems="center">
-                <Avatar src={image} alt="Profile Image" />
+                <Avatar src={picture} alt="Profile Image" />
                 <Typography gutterBottom variant="subtitle1" component="div">
-                  Standard
+                {name.split(' ')[0].toLowerCase()}
                 </Typography>
                 {replyDetails && (
                   <Paper
@@ -113,13 +122,13 @@ const ReplyItem = ({ id, replyDetails, parentId }) => {
                   </Paper>
                 )}
                 <Typography gutterBottom variant="subtitle1" component="div">
-                  Standard
+                {timestamp.split(' ')[0].toLowerCase()}
                 </Typography>
                 <Box>
                   {button !== 0 ? (
                     <Box>
                       <IconButton size="small" aria-label="Reply">
-                        <ReplyIcon style={{ color: "#4636b0" }}/>
+                        <ReplyIcon style={{ color: "#4636b0" }} onClick={toggleReplyBox}/>
                       </IconButton>
                       <Typography
                         variant="subtitle1"
@@ -172,6 +181,16 @@ const ReplyItem = ({ id, replyDetails, parentId }) => {
     </Paper>
     </Box>
     </Box>
+    {activeCommentId === id && isReplyBoxVisible && (
+        <>
+          <ReplyBox
+            toggleReplyBox={toggleReplyBox}
+            activeCommentId={activeCommentId}
+            parentId={activeCommentId}
+          />
+          <ReplyList activeCommentId={activeCommentId} />
+        </>
+      )}
     </>
   );
 };

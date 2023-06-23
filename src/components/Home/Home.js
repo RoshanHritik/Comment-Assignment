@@ -64,7 +64,7 @@ const Home = () => {
                 </Button>
             ) : (
                 <Box sx={{ display: "flex", alignItems: "flex-end", marginTop:"25px" }}>
-                <Sports/>
+                {/* <Sports/> */}
                 <Login signIn={signIn} />
 
                 </Box>

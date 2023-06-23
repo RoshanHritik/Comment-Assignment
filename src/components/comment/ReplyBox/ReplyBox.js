@@ -10,11 +10,13 @@ import { useDispatch } from "react-redux";
 import { addReply } from "../../../redux/Comment/commentSlice";
 import { v4 as uuidv4 } from "uuid";
 
-const ReplyBox = (activeCommentId, parentId) => {
+const ReplyBox = (activeCommentId) => {
   const [replyText, setReplyText] = useState("");
   const replyInputRef = useRef(null);
   const [replyBoxVisible, setReplyBoxVisible] = useState(true);
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const timestamp = new Date().toLocaleString();
 
   const handleAddReply = (event) => {
     event.preventDefault();
@@ -28,11 +30,19 @@ const ReplyBox = (activeCommentId, parentId) => {
     const newReply = {
       id: uuidv4(),
       content: replyText,
+      parentId: activeCommentId.activeCommentId,
+      user: {
+        name: user.name,
+        email: user.email,
+        picture: user.picture
+      },
+      timestamp: timestamp,
     };
+    console.log(activeCommentId.parentId);
 
     dispatch(
       addReply({
-        commentId: activeCommentId.activeCommentId, // Pass the parentId to the addReply action
+        commentId: activeCommentId.activeCommentId,
         reply: newReply,
       })
     );
@@ -40,7 +50,6 @@ const ReplyBox = (activeCommentId, parentId) => {
     setReplyText("");
     setReplyBoxVisible(false);
   };
-// console.log(replyText);
   return (
     <>
     {replyBoxVisible && (
@@ -56,7 +65,7 @@ const ReplyBox = (activeCommentId, parentId) => {
             <Paper elevation={3} sx={{ width: 600, padding: "1rem" }}>
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs={1}>
-                  <Avatar src={image} alt="Profile Image" />
+                  <Avatar src={user.picture} alt="Profile Image" />
                 </Grid>
                 <Grid item xs={9}>
                   <TextareaAutosize

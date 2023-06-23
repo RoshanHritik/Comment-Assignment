@@ -36,20 +36,22 @@ function getStyles(name, personName, theme) {
 export default function SelectPlaceholder() {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+  console.log(names);
+  console.log(personName);
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-    window.location.href = `/sport/${personName[0].split(' ')[0].toLowerCase()}`;
+    const selectedSport = event.target.value;
+    setPersonName(selectedSport);
+    console.log(selectedSport);
+    if (selectedSport.length > 0) {
+      window.location.href = `/sport/${selectedSport.toLowerCase()}`;
+    } else {
+      window.location.href = '/sport'; // Redirect to a default sport page or remove this line if not needed
+    }
   };
 
   return (
-    <div>
+    <>
       <FormControl fullWidth sx={{ m: 1, width: 'auto', mt: 3, color: 'white'}} >
         <Select
         labelId='filter-select-label'
@@ -83,6 +85,6 @@ export default function SelectPlaceholder() {
           ))}
         </Select>
       </FormControl>
-    </div>
+    </>
   );
 }

@@ -1,13 +1,19 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { AppBar, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+} from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
 import Container from "@mui/material/Container";
 import Sports from "../Sports/Sports";
-import { useParams } from 'react-router-dom';
-import Login from "../Login/Login";
 
 const pages = ["Comments"];
 const settings = ["Logout"];
@@ -18,12 +24,9 @@ const Welcome = () => {
   const button = 0;
   const number = 11;
   const comment = true;
-  const user = true;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const handleSignIn = () => {
-    setSignIn(true);
-  };
+  const settings = ["Logout"];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,19 +42,16 @@ const Welcome = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  useEffect(() => {
-    // Retrieve user data from local storage
-    const storedUser = localStorage.getItem('user');
+  const handleSignIn = () => {
+    setSignIn(true);
+  };
+  const handleSignOut = () => {
+    localStorage.clear();
+    window.location.href = 'http://localhost:3000';
+  }
 
-    // Check if user data exists
-    if (storedUser) {
-      setUserExists(true);
-    } else {
-      setUserExists(false);
-    }
-  }, []);
-
-
+  const user = JSON.parse(localStorage.getItem("user"));
+ console.log(user.name);
   return (
     <>
       <AppBar position="static">
@@ -86,20 +86,47 @@ const Welcome = () => {
                 </Button>
               ))}
             </Box>
-            {userExists ? (
-                <Box sx={{ display: "flex", alignItems: "flex-end", marginTop:"25px" }}>
-                <Sports/>
-                <Login signIn={signIn} />
+            <Sports />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "flex-end",
+                marginTop: "25px",
+              }}
+            >
+              <>
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar src={user.picture} alt="Profile Image" />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    <MenuItem key={settings} onClick={handleSignOut}>
+                      <Typography textAlign="center">{settings}</Typography>
+                    </MenuItem>
+                  </Menu>
                 </Box>
-            ):(
-                <Button variant="contained" color="primary" onClick={handleSignIn}>
-                Sign In
-                </Button>
-            ) }
+              </>
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>
-      {/* <Comment /> */}
     </>
   );
 };

@@ -7,7 +7,7 @@ import styles from "./ReplyList.style.js";
 
 const ReplyList = ({ activeCommentId }) => {
   // console.log("Hrk");
-  console.log(activeCommentId);
+  // console.log(activeCommentId);
 
     const comments = useSelector((state) => state.comments.comments)
     const comment = comments.find((c) => c.id === activeCommentId);
@@ -20,7 +20,9 @@ const ReplyList = ({ activeCommentId }) => {
     <Box sx={styles.mainWrapper}> 
     <Box sx={{width: "5px", height:"100%", backgroundColor: "#b3b3b3"}}>
       {comment.replies.map((reply) => (
-        <ReplyItem key={reply.id} id={reply.id} replyDetails={reply.content} />
+        <ReplyItem key={reply.id} id={reply.id} replyDetails={reply.content} parentId={reply.parentId}
+        votes={reply.votes}
+        name={reply.user.name} picture={reply.user.picture} timestamp={reply.timestamp} />
       ))}
       </Box> 
       </Box>

@@ -1,0 +1,87 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:storybook/recommended"
+  ],
+  "plugins": ["react", "import", "jsx-a11y", "promise", "jest"],
+  "rules": {
+    "import/no-unresolved": 0,
+    "react/prop-types": 0,
+    "react/require-default-props": "error",
+    "react/no-unescaped-entities": 0,
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "always"],
+    "block-spacing": "error",
+    "computed-property-spacing": ["error", "never"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "lines-between-class-members": "warn",
+    "no-prototype-builtins": "warn",
+    "no-multi-assign": "error",
+    "no-multi-spaces": "error",
+    "no-useless-catch": "off",
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
+    "no-duplicate-imports": "error",
+    "no-useless-computed-key": "error",
+    "no-useless-rename": "error",
+    "no-var": "error",
+    "one-var-declaration-per-line": "error",
+    "prefer-const": "error",
+    "prefer-template": "error",
+    "react/jsx-key": "error",
+    "react/jsx-no-target-blank": ["error", { "enforceDynamicLinks": "never" }],
+    "react/jsx-pascal-case": "error",
+    "react/no-children-prop": "error",
+    "react/no-danger-with-children": "error",
+    "react/no-deprecated": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-find-dom-node": "error",
+    "react/no-is-mounted": "error",
+    "react/no-string-refs": "error",
+    "react/no-typos": "error",
+    "react/no-unknown-property": "error",
+    "react/prefer-es6-class": ["error", "always"],
+    "react/react-in-jsx-scope": "error",
+    "react/require-render-return": "error",
+    "react/self-closing-comp": ["error", { "component": true, "html": true }],
+    "react/void-dom-elements-no-children": "error"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest/globals": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.spec.js",
+        "**/*.spec.jsx",
+        "**/*.test.js"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}

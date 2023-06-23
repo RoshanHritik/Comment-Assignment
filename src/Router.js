@@ -4,18 +4,15 @@ import Home from "./components/Home/Home";
 import Welcome from "./components/Home/Welcome";
 import CommentList from "./components/comment/CommentBox/CommentList";
 import CommentBox from "./components/comment/CommentBox/CommentBox";
+import { CommentWrapper } from "./components/comment/CommentWrapper";
 
 const Router = () => {
   return (
     <BrowserRouter basename="/">
       <Routes>
         <Route exact path="/" element={<Home />} />
-        {/* <Route path="/:user" component={<Welcome />} /> */}
-        <Route path="/sport/:sport/*" element={<>
-          <CommentList/>
-        <CommentBox /> 
-        </>} />
-        <Route path="/sport/*" element={<Welcome />} />
+        <Route exact path="/sport" element={<Welcome />} />
+        <Route path="/sport/:sport/*" element={<CommentWrapper/>} />
       </Routes>
     </BrowserRouter>
   );
