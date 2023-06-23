@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -13,8 +13,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import image from "../../../assests/product_1.png";
 import { useDispatch } from "react-redux";
 import {  deleteComment, upvoteComment, downvoteComment  } from "../../../redux/Comment/commentSlice";
+import ReplyBox from "./ReplyBox";
+import ReplyList from "./ReplyList";
 
-const ReplyItem = ({ id, replyDetails }) => {
+const ReplyItem = ({ id, replyDetails, parentId }) => {
   const button = 1;
   const number = 0;
   const dispatch = useDispatch();
@@ -34,7 +36,16 @@ const ReplyItem = ({ id, replyDetails }) => {
   const handleDownvote = () => {
     dispatch(downvoteComment(id));
   };
+  console.log(parentId);  
   return (
+    <>
+     {/* <Box sx={{display:"flex", minHeight:"200px", width:"550px", marginTop: "20px" }}> */}
+    <Box>
+    {/* <Box sx={{width: "5px", height:"100%", color:"red", backgroundColor: "red"}}>
+    </Box> */}
+    {/* </Box> */}
+    {/* <Box> */}
+    <Box sx={{marginLeft: "10px"}}>
     <Paper
       key={id}
       elevation={3}
@@ -42,7 +53,10 @@ const ReplyItem = ({ id, replyDetails }) => {
         p: 2,
         display: "flex",
         alignItems: "center",
-        width: 550,
+        width: "550px",
+        marginLeft: "10px",
+        marginTop: "20px",
+        ":first-child":{marginTop:"0px"}
         // left: 
         // padding: "1rem",
       }}
@@ -105,13 +119,14 @@ const ReplyItem = ({ id, replyDetails }) => {
                   {button !== 0 ? (
                     <Box>
                       <IconButton size="small" aria-label="Reply">
-                        <ReplyIcon style={{ color: "#4636b0" }} />
+                        <ReplyIcon style={{ color: "#4636b0" }}/>
                       </IconButton>
                       <Typography
                         variant="subtitle1"
                         fontWeight={"bold"}
                         component="span"
                         style={{ color: "#4636b0" }}
+                        
                       >
                         Reply
                       </Typography>
@@ -155,6 +170,9 @@ const ReplyItem = ({ id, replyDetails }) => {
         </Box>
       </Grid>
     </Paper>
+    </Box>
+    </Box>
+    </>
   );
 };
 

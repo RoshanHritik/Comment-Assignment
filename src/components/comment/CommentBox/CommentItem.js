@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -20,13 +19,20 @@ import {
 import ReplyBox from "../ReplyBox/ReplyBox";
 import ReplyList from "../ReplyBox/ReplyList";
 
-const CommentItem = ({ id, commentDetails }) => {
+const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) => {
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [replyBoxVisible, setReplyBoxVisible] = useState(false);
   const button = 1;
   const number = 0;
   const dispatch = useDispatch();
-
+  // const comments = useSelector((state) => state.comments.comments)
+  // const value = useSelector();
+  // console.log(id);
+  // console.log(commentDetails);
+  // console.log(votes);
+  // console.log(name);
+  // console.log(picture);
+  // console.log(timestamp);
   const removeComment = () => {
     dispatch(
       deleteComment({
@@ -58,11 +64,10 @@ const CommentItem = ({ id, commentDetails }) => {
             width: 600,
             height: 150,
             padding: "1rem",
+            boxShadow: "none",
           }}
         >
-          {/* <Box container spacing={2}> */}
-          <Box display="flex" alignItems="center" justifyContent="center">
-            {/* <Box item> */}
+          <Box display="flex" alignItems="center">
             <Box
               display="flex"
               alignItems="center"
@@ -70,7 +75,7 @@ const CommentItem = ({ id, commentDetails }) => {
               fontStyle="inherit"
               height={"100px"}
               backgroundColor="#e6e6e6"
-              marginTop={"35px"}
+              marginTop={"20px"}
               marginLeft={"5px"}
               borderRadius={"10px"}
               marginBottom={"30px"}
@@ -83,81 +88,94 @@ const CommentItem = ({ id, commentDetails }) => {
               >
                 <AddIcon style={{ color: "#4636b0" }} />
               </IconButton>
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  style={{ color: "#4636b0" }}
-                  // paddingTop={"12px"}
-                >
-                  {number}
-                </Typography>
-                <IconButton
-                  size="small"
-                  aria-label="Subtract"
-                  onClick={handleDownvote}
-                >
-                  <RemoveIcon
-                    style={{ color: "#4636b0", marginBottom: "20px" }}
-                  />
-                </IconButton>
+              <Typography
+                variant="h5"
+                gutterBottom
+                style={{ color: "#4636b0" }}
+                // paddingTop={"12px"}
+              >
+                {/* {commentDetails.votes} */}
+                {votes}
+              </Typography>
+              <IconButton
+                size="small"
+                aria-label="Subtract"
+                onClick={handleDownvote}
+              >
+                <RemoveIcon
+                  style={{ color: "#4636b0", marginBottom: "20px" }}
+                />
+              </IconButton>
             </Box>
-            {/* </Box> */}
-            <Box
-              fontStyle="inherit"
-              marginLeft={"25px"}
-            >
+            <Box fontStyle="inherit" marginLeft={"25px"}>
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  paddingTop: "20px",
+                  justifyContent: "space-between",
+                  // paddingTop: "20px",
                 }}
               >
-                <Avatar
-                  src={image}
-                  alt="Profile Image"
-                  sx={{ width: 32, height: 32 }}
-                />
-                <Typography
-                  gutterBottom
-                  variant="subtitle1"
-                  component="div"
-                  fontWeight={"16px"}
-                  marginLeft={"20px"}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    // alignItems: "center",
+                    // justifyContent: "space-between",
+                  }}
                 >
-                  ramesmiron
-                </Typography>
-                {!commentDetails && (
-                  <Paper
-                    sx={{
-                      backgroundColor: "#4636b0",
-                      color: "white",
-                      padding: "2px 5px",
-                      borderRadius: "3px",
-                      marginLeft: "15px",
-                    }}
+                  <Avatar
+                    src={picture}
+                    alt="Profile Image"
+                    sx={{ width: 32, height: 32 }}
+                  />
+                  <Typography
+                    gutterBottom
+                    variant="subtitle1"
+                    component="div"
+                    fontSize={"16px"}
+                    // fontWeight={"16px"}
+                    marginLeft={"20px"}
+                    fontWeight={"bold"}
                   >
-                    <Typography variant="body1">you</Typography>
-                  </Paper>
-                )}
-                <Typography
-                  gutterBottom
-                  variant="subtitle1"
-                  component="div"
-                  marginLeft={"15px"}
+                    {name.split(' ')[0].toLowerCase()}
+                  </Typography>
+                  {!commentDetails && (
+                    <Paper
+                      sx={{
+                        backgroundColor: "#4636b0",
+                        color: "white",
+                        padding: "2px 5px",
+                        borderRadius: "3px",
+                        marginLeft: "15px",
+                      }}
+                    >
+                      <Typography variant="body1">you</Typography>
+                    </Paper>
+                  )}
+                  <Typography
+                    gutterBottom
+                    variant="subtitle1"
+                    component="div"
+                    marginLeft={"15px"}
+                  >
+                    {timestamp.split(' ')[0].toLowerCase()}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                    
+                  }}
                 >
-                  Stand
-                </Typography>
-                <Box>
-                  {button === 0 ? (
+                  {button !== 0 ? (
                     <Box paddingLeft={"220px"}>
                       <IconButton
                         size="small"
                         aria-label="Reply"
                         onClick={toggleReplyBox}
-
-                        // disabled={isReplyBoxOpen}
                       >
                         <ReplyIcon style={{ color: "#4636b0" }} />
                       </IconButton>
@@ -171,9 +189,15 @@ const CommentItem = ({ id, commentDetails }) => {
                       </Typography>
                     </Box>
                   ) : (
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", paddingLeft: "170px" }}>
                       <IconButton size="small">
-                        <DeleteIcon style={{ color: "#c94f4f" }} />
+                        <DeleteIcon
+                          style={{
+                            color: "#c94f4f",
+                            width: "20px",
+                            height: "20px",
+                          }}
+                        />
                         <Typography
                           variant="subtitle1"
                           fontWeight={"bold"}
@@ -243,8 +267,8 @@ const CommentItem = ({ id, commentDetails }) => {
           <ReplyBox
             toggleReplyBox={toggleReplyBox}
             activeCommentId={activeCommentId}
+            parentId={activeCommentId}
           />
-
           <ReplyList activeCommentId={activeCommentId} />
         </>
       )}

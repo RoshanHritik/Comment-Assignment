@@ -15,7 +15,7 @@ const Router = () => {
           <CommentList/>
         <CommentBox /> 
         </>} />
-        {/* <Route path="/sport/*" element={<Welcome />} /> */}
+        <Route path="/sport/*" element={<Welcome />} />
       </Routes>
     </BrowserRouter>
   );

@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { addReply } from "../../../redux/Comment/commentSlice";
 import { v4 as uuidv4 } from "uuid";
 
-const ReplyBox = (activeCommentId) => {
+const ReplyBox = (activeCommentId, parentId) => {
   const [replyText, setReplyText] = useState("");
   const replyInputRef = useRef(null);
   const [replyBoxVisible, setReplyBoxVisible] = useState(true);

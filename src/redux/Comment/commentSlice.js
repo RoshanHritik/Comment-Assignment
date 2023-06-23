@@ -23,8 +23,8 @@ const commentSlice = createSlice({
         mentionedUsers: [],
         replies: [],
         votes: 0,
-        sports: "",
-        createdAt: "",
+        sport: "",
+        timestamp: "",
         updatedAt: "",
       };
       // state.comments.push(newComment);
@@ -40,6 +40,8 @@ const commentSlice = createSlice({
       }
     },
     deleteComment: (state, action) => {
+      console.log(action);
+      console.log(state.comments);
       const commentId = action.payload;
       state.comments = state.comments.filter((c) => c.id !== commentId);
     },

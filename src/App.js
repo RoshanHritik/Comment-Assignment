@@ -14,7 +14,8 @@ const App = () => {
         {/* <CommentList/>
         <CommentBox />         */}
         <div style={{backgroundColor: "#e6e6e6", height: "100vh"}}>
-        <CommentWrapper/>
+        {/* <CommentWrapper/> */}
+        <Router />
         </div>
       </div>
     </Provider>
