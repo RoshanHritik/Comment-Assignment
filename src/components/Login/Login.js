@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
-import { Avatar, Box, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 
 const Login = () => {      
   const [ user, setUser ] = useState({});
@@ -12,15 +11,12 @@ const Login = () => {
     setUser(userObject);
     document.getElementById("signInDiv").hidden = true;
     window.location.href = `/sport`;
-    // Store user data in local storage
     localStorage.setItem('user', JSON.stringify(userObject));
   }
 
   const handleSignOut = (event) => {
     setUser({});
     document.getElementById("signInDiv").hidden = false;
-    // window.location.href = '/';
-    // Clear user data from local storage
     localStorage.removeItem('user');
   }
 
@@ -39,7 +35,6 @@ const Login = () => {
     google.accounts.id.prompt();
   },[]);
   useEffect(() => {
-    // Retrieve user data from local storage
     const storedUser = localStorage.getItem('user');
 
     if (storedUser) {
@@ -47,16 +42,10 @@ const Login = () => {
     }
   }, []);
 
-  // If we have no user: sign in button
-  // If we have a user: show the log out button
-
   return (
     <div className="App">
-      <div id="signInDiv"></div>
-      {/* { */}
-        {/* Object.keys(user).length !== 0 && 
-        
-      {/* } */}
+      <div id="signInDiv">
+      </div>
     </div>
   );
 }

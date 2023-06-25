@@ -8,9 +8,6 @@ const commentSlice = createSlice({
   name: "comment",
   initialState,
   reducers: {
-    // addComment: (state, action) => {
-    //   state.comments.push(action.payload);
-    // },
     addComment: (state, action) => {
       const newComment = {
         id: uuidv4(),
@@ -45,27 +42,6 @@ const commentSlice = createSlice({
       const commentId = action.payload;
       state.comments = state.comments.filter((c) => c.id !== commentId);
     },
-    // addReply: (state, action) => {
-    //   const newReply = {
-    //     id: uuidv4(),
-    // content: "",
-    // user: {
-    //   name: "",
-    //   email: "",
-    //   picture: "",
-    // },
-    //     mentionedUsers: [],
-    //     votes: 0,
-    //     sports: "",
-    //     createdAt: "",
-    //     updatedAt: "",
-    //   };
-    //   const { parentId, reply } = action.payload;
-    //   const comment = state.comments.find((c) => c.id === parentId);
-    //   if (comment) {
-    //     comment.replies.push(reply);
-    //   }
-    // },
     addReply: (state, action) => {
       const { commentId, reply } = action.payload;
       state.comments = state.comments.map((comment) => {

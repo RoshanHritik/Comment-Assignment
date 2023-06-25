@@ -2,8 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Welcome from "./components/Home/Welcome";
-import CommentList from "./components/comment/CommentBox/CommentList";
-import CommentBox from "./components/comment/CommentBox/CommentBox";
 import { CommentWrapper } from "./components/comment/CommentWrapper";
 
 const Router = () => {

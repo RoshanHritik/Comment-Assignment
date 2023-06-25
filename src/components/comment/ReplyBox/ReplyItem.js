@@ -10,19 +10,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import image from "../../../assests/product_1.png";
 import { useDispatch } from "react-redux";
 import {  deleteComment, upvoteComment, downvoteComment  } from "../../../redux/Comment/commentSlice";
 import ReplyBox from "./ReplyBox";
 import ReplyList from "./ReplyList";
-import CommentItem from "../CommentBox/CommentItem";
 
 const ReplyItem = ({ id, replyDetails, parentId, votes, name, picture, timestamp }) => {
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [isReplyBoxVisible, setReplyBoxVisible] = useState(false);
 
   const button = 1;
-  const number = 0;
   const dispatch = useDispatch();
   // console.log(replyDetails);
 

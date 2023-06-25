@@ -5,8 +5,9 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { TextareaAutosize } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { addComment } from "../../../redux/Comment/commentSlice";
+import { addComment } from "../../../../redux/Comment/commentSlice";
 import { v4 as uuidv4 } from "uuid";
+import style from "./CommentBox.style";
 
 const CommentBox = () => {
   const [commentText, setCommentText] = useState("");
@@ -14,8 +15,6 @@ const CommentBox = () => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
   const timestamp = new Date().toLocaleString();
-  // console.log(user.picture);
-  // console.log(timestamp);
   const handleAddComment = (event) => {
     event.preventDefault();
     if (commentText.trim().length === 0) {
@@ -39,36 +38,15 @@ const CommentBox = () => {
   };
   return (
     <>
-      <Box
-        position="fixed"
-        bottom={0}
-        left={0}
-        right={0}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        p={2}
-        zIndex={9999}
-        marginBottom={"35px"}
-        backgroundColor={"#e6e6e6"}
-        boxShadow="!important"
-      >
+      <Box sx={style.mainWrapper}>
         <Box>
-          <Paper
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: 600,
-              padding: "1rem",
-              boxShadow: "none",
-            }}
-          >
+          <Paper sx={style.commentBoxWrapper}>
             <Box>
               <Avatar src={user.picture} alt="Profile Image" />
             </Box>
             <Box>
               <TextareaAutosize
-                helperText=" "
+                // helperText=" "
                 id="demo-helper-text-aligned-no-helper"
                 placeholder="Add a comment..."
                 style={{

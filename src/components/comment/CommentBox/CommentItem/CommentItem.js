@@ -9,30 +9,21 @@ import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import image from "../../../assests/product_1.png";
+import style from "./CommentItem.style";
 import { useDispatch } from "react-redux";
 import {
   deleteComment,
   upvoteComment,
   downvoteComment,
-} from "../../../redux/Comment/commentSlice";
-import ReplyBox from "../ReplyBox/ReplyBox";
-import ReplyList from "../ReplyBox/ReplyList";
+} from "../../../../redux/Comment/commentSlice";
+import ReplyBox from "../../ReplyBox/ReplyBox";
+import ReplyList from "../../ReplyBox/ReplyList";
 
 const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) => {
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [replyBoxVisible, setReplyBoxVisible] = useState(false);
   const button = 1;
-  const number = 0;
   const dispatch = useDispatch();
-  // const comments = useSelector((state) => state.comments.comments)
-  // const value = useSelector();
-  // console.log(id);
-  // console.log(commentDetails);
-  // console.log(votes);
-  // console.log(name);
-  // console.log(picture);
-  // console.log(timestamp);
   const removeComment = () => {
     dispatch(
       deleteComment({
@@ -57,28 +48,11 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
         <Paper
           key={id}
           elevation={3}
-          sx={{
-            p: 2,
-            display: "flex",
-            alignItems: "center",
-            width: 600,
-            height: 150,
-            padding: "1rem",
-            boxShadow: "none",
-          }}
+          sx={style.mainWrapper}
         >
           <Box display="flex" alignItems="center">
             <Box
-              display="flex"
-              alignItems="center"
-              flexDirection="column"
-              fontStyle="inherit"
-              height={"100px"}
-              backgroundColor="#e6e6e6"
-              marginTop={"20px"}
-              marginLeft={"5px"}
-              borderRadius={"10px"}
-              marginBottom={"30px"}
+              sx={style.commentItemWrapper}
             >
               <IconButton
                 size="small"
@@ -92,9 +66,7 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
                 variant="h5"
                 gutterBottom
                 style={{ color: "#4636b0" }}
-                // paddingTop={"12px"}
               >
-                {/* {commentDetails.votes} */}
                 {votes}
               </Typography>
               <IconButton
@@ -113,15 +85,12 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  // paddingTop: "20px",
                 }}
               >
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    // alignItems: "center",
-                    // justifyContent: "space-between",
                   }}
                 >
                   <Avatar
@@ -134,7 +103,6 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
                     variant="subtitle1"
                     component="div"
                     fontSize={"16px"}
-                    // fontWeight={"16px"}
                     marginLeft={"20px"}
                     fontWeight={"bold"}
                   >
@@ -258,10 +226,8 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
               </Box>
             </Box>
           </Box>
-          {/* </Box> */}
         </Paper>
       </Box>
-      {/* {replyBoxVisible && <ReplyBox toggleReplyBox={toggleReplyBox} />} */}
       {activeCommentId === id && replyBoxVisible && (
         <>
           <ReplyBox
