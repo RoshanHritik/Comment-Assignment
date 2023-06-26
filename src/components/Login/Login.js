@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 
 const Login = () => {      
@@ -11,6 +11,7 @@ const Login = () => {
     setUser(userObject);
     document.getElementById("signInDiv").hidden = true;
     window.location.href = `/sport`;
+    localStorage.setItem('jwtToken', response.credential);
     localStorage.setItem('user', JSON.stringify(userObject));
   }
 
@@ -36,7 +37,6 @@ const Login = () => {
   },[]);
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -44,8 +44,7 @@ const Login = () => {
 
   return (
     <div className="App">
-      <div id="signInDiv">
-      </div>
+      <div id="signInDiv"></div>
     </div>
   );
 }

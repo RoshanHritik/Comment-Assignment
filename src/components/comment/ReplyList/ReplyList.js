@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
-import ReplyItem from "./ReplyItem";
+import ReplyItem from "../ReplyItem/ReplyItem";
 import styles from "./ReplyList.style.js";
 
 

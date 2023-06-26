@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { TextareaAutosize } from "@mui/material";
-import image from "../../../assests/product_1.png";
+// import image from "../../../assests/product_1.png";
 import { useDispatch } from "react-redux";
 import { addReply } from "../../../redux/Comment/commentSlice";
 import { v4 as uuidv4 } from "uuid";

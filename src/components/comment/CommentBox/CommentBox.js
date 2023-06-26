@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { TextareaAutosize } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { addComment } from "../../../../redux/Comment/commentSlice";
+import { addComment } from "../../../redux/Comment/commentSlice";
 import { v4 as uuidv4 } from "uuid";
 import style from "./CommentBox.style";
 

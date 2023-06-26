@@ -15,9 +15,9 @@ import {
   deleteComment,
   upvoteComment,
   downvoteComment,
-} from "../../../../redux/Comment/commentSlice";
-import ReplyBox from "../../ReplyBox/ReplyBox";
-import ReplyList from "../../ReplyBox/ReplyList";
+} from "../../../redux/Comment/commentSlice";
+import ReplyBox from "../ReplyBox/ReplyBox";
+import ReplyList from "../ReplyList/ReplyList";
 
 const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) => {
   const [activeCommentId, setActiveCommentId] = useState(null);

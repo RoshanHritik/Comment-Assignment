@@ -12,8 +12,8 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import {  deleteComment, upvoteComment, downvoteComment  } from "../../../redux/Comment/commentSlice";
-import ReplyBox from "./ReplyBox";
-import ReplyList from "./ReplyList";
+import ReplyBox from "../ReplyBox/ReplyBox";
+import ReplyList from "../ReplyList/ReplyList";
 
 const ReplyItem = ({ id, replyDetails, parentId, votes, name, picture, timestamp }) => {
   const [activeCommentId, setActiveCommentId] = useState(null);

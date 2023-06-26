@@ -1,6 +1,6 @@
 import React from 'react'
-import CommentList from './CommentBox/CommentList/CommentList'
-import CommentBox from './CommentBox/CommentBox/CommentBox'
+import CommentList from './CommentList/CommentList'
+import CommentBox from './CommentBox/CommentBox'
 import { Box } from '@mui/material'
 
 export const CommentWrapper = () => {
