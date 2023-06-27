@@ -2,23 +2,13 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Welcome from "./components/Home/Welcome";
 import { CommentWrapper } from "./components/comment/CommentWrapper";
-import jwt_decode from "jwt-decode";
 
 const ProtectedRoute = ({ element }) => {
   const storedToken = localStorage.getItem("jwtToken");
-
   try {
     if (!storedToken) {
       throw new Error("User token not found");
     }
-
-    const decodedToken = jwt_decode(storedToken);
-    const currentTime = Date.now() / 1000;
-
-    if (decodedToken.exp < currentTime) {
-      throw new Error("Token has expired");
-    }
-
     return element;
   } catch (error) {
     console.log(error);

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { addComment } from "../../../redux/Comment/commentSlice";
 import { v4 as uuidv4 } from "uuid";
 import style from "./CommentBox.style";
+import SendButton from "custom-button-comment"
 
 const CommentBox = () => {
   const [commentText, setCommentText] = useState("");
@@ -63,13 +64,14 @@ const CommentBox = () => {
               />
             </Box>
             <Box>
-              <Button
+              {/* <Button
                 variant="contained"
                 style={{ backgroundColor: "#4636b0" }}
                 onClick={handleAddComment}
               >
                 Send
-              </Button>
+              </Button> */}
+              <SendButton style={{ backgroundColor: "#4636b0" }} handleOnClick={handleAddComment} name="Send" />
             </Box>
           </Paper>
         </Box>
