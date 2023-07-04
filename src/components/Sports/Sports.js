@@ -42,11 +42,12 @@ export default function SelectPlaceholder() {
   const handleChange = (event) => {
     const selectedSport = event.target.value;
     setPersonName(selectedSport);
+    localStorage.setItem('sportName', selectedSport);
     console.log(selectedSport);
     if (selectedSport.length > 0) {
       window.location.href = `/sport/${selectedSport.toLowerCase()}`;
     } else {
-      window.location.href = '/sport'; // Redirect to a default sport page or remove this line if not needed
+      window.location.href = '/sport';
     }
   };
 

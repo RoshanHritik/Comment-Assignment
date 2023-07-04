@@ -17,6 +17,7 @@ const ProtectedRoute = ({ element }) => {
 };
 
 const Router = () => {
+  
   return (
     <BrowserRouter basename="/">
       <Routes>

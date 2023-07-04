@@ -1,0 +1,26 @@
+export default {
+  mainWrapper: {
+    p: 2,
+    display: 'flex',
+    alignItems: 'center',
+    width: 550,
+    height: 150,
+    padding: '1rem',
+    boxShadow: 'none',
+    marginLeft: '10px',
+    marginTop: '20px',
+    ':first-of-type': { marginTop: '0px' },
+  },
+  replyItemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    fontStyle: 'inherit',
+    height: '100px',
+    backgroundColor: '#e6e6e6',
+    marginTop: '20px',
+    marginLeft: '5px',
+    borderRadius: '10px',
+    marginBottom: '30px',
+  },
+};

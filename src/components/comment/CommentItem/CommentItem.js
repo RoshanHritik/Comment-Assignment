@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
@@ -10,38 +10,48 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import style from "./CommentItem.style";
-import { useDispatch } from "react-redux";
-import {
-  deleteComment,
-  upvoteComment,
-  downvoteComment,
-} from "../../../redux/Comment/commentSlice";
+import axios from "axios";
 import ReplyBox from "../ReplyBox/ReplyBox";
 import ReplyList from "../ReplyList/ReplyList";
 
-const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) => {
+const CommentItem = ({ id, commentDetails, upvotes, email, downvotes, name, picture, replies}) => {
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [replyBoxVisible, setReplyBoxVisible] = useState(false);
+  const [count, setCount] = useState(upvotes.length - downvotes.length);
   const button = 1;
-  const dispatch = useDispatch();
-  const removeComment = () => {
-    dispatch(
-      deleteComment({
-        id,
-      })
-    );
-  };
-  const handleUpvote = () => {
-    dispatch(upvoteComment(id));
+  const handleUpvote = async (id) => {
+    try {
+      const url = `http://localhost:8002/comments/sport/${id}`;
+      const requestBody = {
+          "operation": "like",
+          "email": email,
+      };
+      const response = await axios.put(url, requestBody);
+      setCount(response.data.upvotes.length - response.data.downvotes.length);
+        console.log('Upvotes:', response);
+    } catch (error) {
+      console.error('Error while upvoting:', error.message);
+    }
   };
 
-  const handleDownvote = () => {
-    dispatch(downvoteComment(id));
+  const handleDownvote = async (id) => {
+    try {
+      const url = `http://localhost:8002/comments/sport/${id}`;
+      const requestBody = {
+          "operation": "dislike",
+          "email": email,
+      };
+      const response = await axios.put(url, requestBody);
+      setCount(response.data.upvotes.length - response.data.downvotes.length);
+    } catch (error) {
+      console.error('Error while downvoting:', error.message);
+    }
   };
   const toggleReplyBox = () => {
     setActiveCommentId(id);
     setReplyBoxVisible(!replyBoxVisible);
   };
+  console.log(replies);
   return (
     <>
       <Box marginTop={"20px"}>
@@ -58,7 +68,7 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
                 size="small"
                 aria-label="Add"
                 color="#4636b0"
-                onClick={handleUpvote}
+                onClick= {() => handleUpvote(id)}
               >
                 <AddIcon style={{ color: "#4636b0" }} />
               </IconButton>
@@ -67,12 +77,13 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
                 gutterBottom
                 style={{ color: "#4636b0" }}
               >
-                {votes}
+                {count}
               </Typography>
               <IconButton
                 size="small"
                 aria-label="Subtract"
-                onClick={handleDownvote}
+                color="#4636b0"
+                onClick={() => handleDownvote(id)}
               >
                 <RemoveIcon
                   style={{ color: "#4636b0", marginBottom: "20px" }}
@@ -127,7 +138,7 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
                     component="div"
                     marginLeft={"15px"}
                   >
-                    {timestamp.split(' ')[0].toLowerCase()}
+                    timestamp
                   </Typography>
                 </Box>
                 <Box
@@ -172,7 +183,7 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
                           fontSize={"16px"}
                           component="span"
                           style={{ color: "#c94f4f" }}
-                          onClick={removeComment}
+                          onClick={() => {}}
                         >
                           Delete
                         </Typography>
@@ -228,6 +239,9 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
           </Box>
         </Paper>
       </Box>
+      {replies &&
+        <ReplyList activeCommentId={activeCommentId} replies={replies} />
+      }
       {activeCommentId === id && replyBoxVisible && (
         <>
           <ReplyBox
@@ -235,7 +249,7 @@ const CommentItem = ({ id, commentDetails, votes, name, picture, timestamp }) =>
             activeCommentId={activeCommentId}
             parentId={activeCommentId}
           />
-          <ReplyList activeCommentId={activeCommentId} />
+          
         </>
       )}
     </>
